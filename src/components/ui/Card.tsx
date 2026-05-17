@@ -1,7 +1,7 @@
 "use client";
 import { Card } from "antd";
 import { dir } from "console";
-import React from "react";
+import React, { useId } from "react";
 import { IoIosArrowRoundDown, IoIosArrowRoundUp } from "react-icons/io";
 import { LuUser } from "react-icons/lu";
 import { Area, AreaChart, ResponsiveContainer, Tooltip } from "recharts";
@@ -39,6 +39,7 @@ const Cardbody = ({
   deviceNumber1?: number;
   deviceNumber2?: number;
 }) => {
+  const gradientId = useId().replace(/[:]/g, "");
   return (
     <Card type="inner" className="">
       <div className="flex gap-2 items-center mb-4">
@@ -68,7 +69,7 @@ const Cardbody = ({
           <ResponsiveContainer>
             <AreaChart data={data}>
               <defs>
-                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
                   <stop
                     offset="5%"
                     stopColor={direction === "up" ? "#10b981" : "#ef4444"}
@@ -86,7 +87,7 @@ const Cardbody = ({
                 type="monotone"
                 dataKey="uv"
                 stroke={direction === "up" ? "#10b981" : "#ef4444"}
-                fill="url(#colorUv)"
+                fill={`url(#${gradientId})`}
                 strokeWidth={2}
                 dot={false}
               />
